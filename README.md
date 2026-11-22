@@ -16,16 +16,20 @@ Each level is a hallway with rooms off it, and a box pushed out of a room can ne
 
 Rooms are solved with the other rooms' boxes standing as walls, and the player walks on from where the last room left it. A step-based A\* stands by as a fallback, so a room the push search gives up on still gets solved for partial points. The search is budgeted by work, never by the clock, so two runs write the same bytes.
 
+Scoring is all about pushes: a level solved in its push-optimal count earns 1,000 points, while even one push over earns under half — so the solver never trades a push for a shorter walk.
+
 On the kit's practice set it scores 5,000 of 5,000 points (every instance in its push-optimal count), in under a second; the same holds on five further sets drawn from the published generator.
 
 ## Run locally
+
+`main.ts` runs on Node 22 with no dependencies and nothing to install:
 
 ```sh
 mkdir -p out
 MAKEFUN_INPUT_DIR=practice/input MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-`main.ts` (Node 22, no dependencies) reads every level in `/input/<id>/level.txt` and writes `/output/<id>/solution.txt` — the player's moves in LURD, an upper-case letter marking a push.
+It reads every level in `/input/<id>/level.txt` and writes `/output/<id>/solution.txt` — the player's moves in LURD, an upper-case letter marking a push.
 
 ## License
 
